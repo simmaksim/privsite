@@ -1,0 +1,6 @@
+/env
+/myshop/payment/__pycache__
+/myshop/orders/__pycache__
+/myshop/cart/__pycache__
+/myshop/myshop/__pycache__
+/myshop/shop/__pycache__
