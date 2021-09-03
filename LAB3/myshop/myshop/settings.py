@@ -40,8 +40,16 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
-    'payment.apps.PaymentConfig'
+    'payment.apps.PaymentConfig',
+
+    'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+'DEFAULT_PERMISSION_CLASSES': [
+'rest_framework.permissions.AllowAny',
+]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,12 +87,15 @@ WSGI_APPLICATION = 'myshop.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": os.environ.get("DATABASE_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("PG_DB", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("PG_USER", "user"),
+        "PASSWORD": os.environ.get("PG_PASS", "password"),
+        "HOST": os.environ.get("PG_HOST", "localhost"),
+        "PORT": os.environ.get("PG_PORT", "5432"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -143,6 +154,20 @@ BRAINTREE_CONF = braintree.Configuration(
     BRAINTREE_PUBLIC_KEY,
     BRAINTREE_PRIVATE_KEY
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 

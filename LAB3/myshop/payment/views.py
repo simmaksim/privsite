@@ -3,11 +3,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from orders.models import Order
 from .tasks import payment_completed
+import logging
 
 
 # instantiate Braintree payment gateway
 gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
-
+info_logger = logging.getLogger('My shop')
+info_logger.setLevel(logging.INFO)
+filehandler = logging.FileHandler('MyShop.log')
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+filehandler.setFormatter(formatter)
+info_logger.addHandler(filehandler)
 
 def payment_process(request):
     order_id = request.session.get('order_id')
@@ -46,8 +52,10 @@ def payment_process(request):
 
 
 def payment_done(request):
+    info_logger.info('Payment done')
     return render(request, 'payment/done.html')
 
 
 def payment_canceled(request):
+    info_logger.info('Payment canceled')
     return render(request, 'payment/canceled.html')

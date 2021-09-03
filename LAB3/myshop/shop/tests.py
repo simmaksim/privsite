@@ -1,5 +1,7 @@
-from django.test import TestCase
+from django.test import TestCase, SimpleTestCase
 from .models import Product, Category
+from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class CategoryModelTest(TestCase):
@@ -66,4 +68,15 @@ class ProductModelTest(TestCase):
         dec_places = test_product._meta.get_field('price').decimal_places
         self.assertEqual(dec_places, 2)
 
+
+class LoginViewTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(username='Test', password='Test')
+        self.user.save()
+
+    def test(self):
+        resp = self.client.post('/login/', {'username': 'test', 'password': 'test'})
+        self.assertEqual(resp.status_code, 200)
+
+   #
 # Create your tests here.

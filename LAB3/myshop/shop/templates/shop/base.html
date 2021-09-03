@@ -8,7 +8,11 @@
     </head>
     <body>
         <div id="header">
+
             <a href="/" class="logo">My shop</a>
+            {% if user.is_authenticated %}
+                    <span ><a class="hello-msg" href="http://127.0.0.1:8000/login/">Log out</a> </span>
+            {% endif %}
         </div>
         <div id="subheader">
             <div class="cart">

@@ -49,9 +49,6 @@ def order_create(request):
             cart.clear()
             #async
             order_created.delay(order.id)
-            '''return render(request,
-                          'orders/order/created.html',
-                          locals())'''
             request.session['order_id'] = order.id
             return redirect(reverse('payment:process'))
     else:

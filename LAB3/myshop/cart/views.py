@@ -3,6 +3,14 @@ from django.views.decorators.http import require_POST
 from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
+import logging
+
+
+info_logger = logging.getLogger('My shop')
+info_logger.setLevel(logging.INFO)
+filehandler = logging.FileHandler('MyShop.log')
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+filehandler.setFormatter(formatter)
 
 
 @require_POST
@@ -15,6 +23,9 @@ def cart_add(request, product_id):
         cart.add(product=product,
                  quantity=cd['quantity'],
                  override_quantity=cd['override'])
+        info_logger.info('items added to cart')
+    else:
+        info_logger.warning('Form is not valid')
     return redirect('cart:cart_detail')
 
 
@@ -23,6 +34,7 @@ def cart_remove(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
+    info_logger.info('Item deleted')
     return redirect('cart:cart_detail')
 
 
