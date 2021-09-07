@@ -49,6 +49,7 @@ def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        status = request.POST.get('status')
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
@@ -69,17 +70,25 @@ def logoutPage(request):
     return redirect('/login')
 
 @login_required(login_url='/login')
-def product_list(request, category_slug=None):
+def product_list(request, category_slug=None, tag_slug=None):
     category = None
     categories = Category.objects.all()
+    tag = None
+    tags = Tag.objects.all()
     products = Product.objects.filter(available=True)
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
+
+    #if tag_slug:
+     #   tag = get_object_or_404(Tag, slug=tag_slug)
+      #  products = products.filter(tag=tag)
     return render(request,
                   'shop/product/list.html',
                   {'category': category,
                    'categories': categories,
+                  # 'tag': tag,
+                  # 'tags': tags,
                    'products': products})
 
 @login_required(login_url='/login')

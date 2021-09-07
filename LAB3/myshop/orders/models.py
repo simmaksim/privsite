@@ -1,5 +1,5 @@
 from django.db import models
-from shop.models import Product
+from shop.models import Product, Customer
 
 
 class Order(models.Model):
@@ -21,6 +21,7 @@ class Order(models.Model):
         return f'Order {self.id}'
 
     def get_total_cost(self):
+
         return sum(item.get_cost() for item in self.items.all())
 
 

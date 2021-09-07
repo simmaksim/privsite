@@ -16,6 +16,10 @@ class CategoryModelTest(TestCase):
         test_category = self.category
         self.assertEqual(test_category.__str__(), 'soda')
 
+    def test_category_absolute_url(self):
+        test_category = self.category
+        self.assertEqual(test_category.get_absolute_url(), '/some_slug/')
+
     def test_slug_max_length(self):
         test_category = self.category
         max_len = test_category._meta.get_field('slug').max_length
@@ -48,6 +52,10 @@ class ProductModelTest(TestCase):
         test_product = self.product
         self.assertEqual(test_product.__str__(), 'Monster')
 
+    def test_product_absolute_url(self):
+        test_product = self.product
+        self.assertEqual(test_product.get_absolute_url(), '/29/some_slug/')
+
     def test_slug_max_length(self):
         test_product = self.product
         max_len = test_product._meta.get_field('slug').max_length
@@ -73,10 +81,35 @@ class LoginViewTest(TestCase):
     def setUp(self):
         self.user = User.objects.create(username='Test', password='Test')
         self.user.save()
+        self.response = self.client.get('/login/')
 
-    def test(self):
+    def test_login_status_code(self):
         resp = self.client.post('/login/', {'username': 'test', 'password': 'test'})
         self.assertEqual(resp.status_code, 200)
 
-   #
+    def test_login_template(self):
+        self.assertTemplateUsed(self.response, 'shop/login.html')
+
+    def test_login_contains_correct_html(self):
+        self.assertContains(self.response, 'login')
+
+    def test_login_does_not_contain_incorrect_html(self):
+        self.assertNotContains(
+            self.response, 'Hi there! I should not be on the page.')
+
+
+class RegisterPageTests(TestCase):
+
+    def setUp(self):
+        self.response = self.client.get('/register/')
+
+    def test_register_status_code(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_register_template(self):
+        self.assertTemplateUsed(self.response, 'shop/register.html')
+
+    def test_register_page_does_not_contain_incorrect_html(self):
+        self.assertNotContains(
+            self.response, 'Hi there! I should not be on the page.')
 # Create your tests here.

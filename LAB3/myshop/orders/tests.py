@@ -33,7 +33,7 @@ class OrderModelTest(TestCase):
 
     def test_Order_str(self):
         test_order = self.order
-        self.assertEqual(test_order.__str__(), 'Order 1')
+        self.assertEqual(test_order.__str__(), 'Order 2')
 
     def test_get_total_cost(self):
         test_order = self.order
@@ -104,7 +104,7 @@ class OrderItemModelTest(TestCase):
 
     def test_model_order_item_str(self):
         test_item = self.item
-        self.assertEqual(test_item.__str__(), '1')
+        self.assertEqual(test_item.__str__(), '5')
 
     def test_model_order_item_price_max(self):
         test_item = self.item

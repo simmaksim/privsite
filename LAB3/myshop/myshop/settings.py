@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
-
     'rest_framework',
 ]
 
@@ -88,10 +87,10 @@ WSGI_APPLICATION = 'myshop.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("DATABASE_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("PG_DB", os.path.join(BASE_DIR, "db.sqlite3")),
-        "USER": os.environ.get("PG_USER", "user"),
-        "PASSWORD": os.environ.get("PG_PASS", "password"),
+        "ENGINE": os.environ.get("DATABASE_ENGINE", "django.db.backends.postgresql"),
+        "NAME": os.environ.get("PG_DB", "postgres"),
+        "USER": os.environ.get("PG_USER", "postgres"),
+        "PASSWORD": os.environ.get("PG_PASS", "docker"),
         "HOST": os.environ.get("PG_HOST", "localhost"),
         "PORT": os.environ.get("PG_PORT", "5432"),
     }

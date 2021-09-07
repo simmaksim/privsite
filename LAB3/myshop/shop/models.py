@@ -1,4 +1,3 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -6,6 +5,21 @@ from django.contrib.auth.models import User
 
 class Customer(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=35)
+    slug = models.CharField(max_length=250)
+    created = models.DateTimeField(auto_now_add=False)
+
+    def get_absolute_url(self):
+        return reverse('shop:product_list_by_tag', args=[self.slug])
+
+    class Meta:
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
 
 
 class Category(models.Model):
@@ -34,6 +48,7 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    tag = models.ManyToManyField(Tag, related_name='tags', blank=True)
 
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
@@ -44,4 +59,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
 # Create your models here.

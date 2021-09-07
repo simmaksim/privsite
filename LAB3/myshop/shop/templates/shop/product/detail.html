@@ -15,6 +15,11 @@
                 {{ product.category }}
             </a>
         </h2>
+        <h3>
+            <a href="{{ product.tag.get_absolute_url }}">
+                {{ product.tag }}
+            </a>
+        </h3>
         <p class="price">${{ product.price }}</p>
         <form action="{% url "cart:cart_add" product.id %}" method="post">
             {{ cart_product_form }}
