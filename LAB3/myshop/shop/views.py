@@ -74,21 +74,18 @@ def product_list(request, category_slug=None, tag_slug=None):
     category = None
     categories = Category.objects.all()
     tag = None
-    tags = Tag.objects.all()
     products = Product.objects.filter(available=True)
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
 
-    #if tag_slug:
-     #   tag = get_object_or_404(Tag, slug=tag_slug)
-      #  products = products.filter(tag=tag)
+
     return render(request,
                   'shop/product/list.html',
                   {'category': category,
                    'categories': categories,
-                  # 'tag': tag,
-                  # 'tags': tags,
+                   #'tag': tag,
+                   #'tags': tags,
                    'products': products})
 
 @login_required(login_url='/login')
@@ -97,12 +94,28 @@ def product_detail(request, id, slug):
                                 id=id,
                                 slug=slug,
                                 available=True)
+
+    print(product)
+    arr = list(product.tag.values())
+    string=str()
+    mas = list()
+    for x in arr:
+        #string = str(x.get('name') + ',')
+        #string.join(x.get('name'))
+        mas.append(x.get('name'))
+        mas.append(' ')
+
+    #string[-1] = ''
+    print(mas)
+    print(product.tag.values('name'))
+    print(list(product.tag.all()))
     cart_product_form = CartAddProductForm()
 
     return render(request,
                   'shop/product/detail.html',
                   {'product': product,
-                   'cart_product_form': cart_product_form})
+                   'cart_product_form': cart_product_form,
+                   'tag': string.join(mas)})
 
 
 class APIProductList(generics.ListCreateAPIView):
