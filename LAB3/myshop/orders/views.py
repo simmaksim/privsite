@@ -46,11 +46,13 @@ def order_create(request):
                                          price=item['price'],
                                          quantity=item['quantity'])
             # clear the cart
-            cart.clear()
-            #async
-            order_created.delay(order.id)
-            request.session['order_id'] = order.id
-            return redirect(reverse('payment:process'))
+            return render(request,
+                          'orders/order/created.html',
+                          {'order': order})
+                # async
+            #order_created.delay(order.id)
+            #request.session['order_id'] = order.id
+            #return redirect(reverse('payment:process'))
     else:
         form = OrderCreateForm()
     return render(request,

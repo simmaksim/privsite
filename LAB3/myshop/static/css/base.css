@@ -1,9 +1,9 @@
 @import url(//fonts.googleapis.com/css?family=Ubuntu);
 
 body {
-    margin:0;
-    padding:0;
-    font-family:helvetica, sans-serif;
+    background-image: "/static/img/front.jpg";
+    color: green;
+    font-family: helvetica, sans-serif;
 }
 
 h1, h2, h3, h4, h5 , h6 {
@@ -123,7 +123,7 @@ ul.errorlist {
 }
 
 #subheader {
-    background:#ececec;
+    background:#fff;
     color:#444;
     padding:15px 100px;
     overflow:auto;

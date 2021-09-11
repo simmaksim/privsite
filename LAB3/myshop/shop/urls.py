@@ -9,7 +9,7 @@ urlpatterns = [
                path('register/', registerPage, name='register'),
                path('logout/', logoutPage, name='logout'),
                path('<slug:category_slug>/', product_list, name='product_list_by_category'),
-               path('<slug:tag_slug>/', product_list, name='product_list_by_tag'),
+               path('<slug:tag_slug>/', another_product_list, name='product_list_by_tag'),
                path('<int:id>/<slug:slug>/', product_detail, name='product_detail'),
                path('api/energetics/', APIProductList.as_view()),
                path('api/<int:pk>/', APIProductDetail.as_view()),

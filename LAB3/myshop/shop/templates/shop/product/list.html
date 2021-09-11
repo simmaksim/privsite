@@ -19,6 +19,15 @@
                 </li>
             {% endfor %}
         </ul>
+<!--        <h3>Tags</h3>
+        <ul>
+           {% for t in tags %}
+               <li {% if tag.slug == t.slug %}class="selected"
+               {% endif %}>
+                   <a href="{{ t.get_absolute_url }}">{{ t.name }}</a>
+               </li>
+           {% endfor %}
+        </ul>-->
     </div>
     <div id="main" class="product-list">
         <h1>{% if category %}{{ category.name }}{% else %}Products

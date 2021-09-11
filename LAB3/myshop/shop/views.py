@@ -70,23 +70,33 @@ def logoutPage(request):
     return redirect('/login')
 
 @login_required(login_url='/login')
-def product_list(request, category_slug=None, tag_slug=None):
+def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
-    tag = None
     products = Product.objects.filter(available=True)
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
-
-
     return render(request,
                   'shop/product/list.html',
                   {'category': category,
                    'categories': categories,
-                   #'tag': tag,
-                   #'tags': tags,
                    'products': products})
+
+@login_required
+def another_product_list(request, tag_slug=None):
+    tag = None
+    tags = Tag.objects.all()
+    products = Product.objects.filter(available=True)
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        products = products.filter(tag=tag)
+    return render(request,
+                  'shop/product/list.html',
+                  {'tag': tag,
+                   'categories': tags,
+                   'products': products})
+
 
 @login_required(login_url='/login')
 def product_detail(request, id, slug):

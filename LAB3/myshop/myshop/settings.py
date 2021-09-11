@@ -21,11 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '(3c*bcf$x)!lof@*32(qv#63q0k5=*#=$=zx-0y_voc$j*gzj+'
-
+#SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=1))
 
 ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split("")
 
 
 # Application definition
@@ -141,11 +142,12 @@ CART_SESSION_ID = 'cart'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-BRAINTREE_MERCHANT_ID = 'mgdf6255gsx2ktv5' # Merchant ID
-BRAINTREE_PUBLIC_KEY = '74nskh9jqmsry786' # Public Key
-BRAINTREE_PRIVATE_KEY = 'c83fc7586d298f08047ea38741605170' # Private key
 
 import braintree
+
+BRAINTREE_MERCHANT_ID = os.environ.get("BRAINTREE_MERCHANT_ID")
+BRAINTREE_PUBLIC_KEY = os.environ.get("BRAINTREE_PUBLIC_KEY")
+BRAINTREE_PRIVATE_KEY = os.environ.get("BRAINTREE_PRIVATE_KEY")
 
 BRAINTREE_CONF = braintree.Configuration(
     braintree.Environment.Sandbox,
@@ -174,5 +176,4 @@ LOGGING = {
     }
 }
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')

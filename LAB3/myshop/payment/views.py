@@ -8,6 +8,8 @@ import logging
 
 # instantiate Braintree payment gateway
 gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
+
+
 info_logger = logging.getLogger('My shop')
 info_logger.setLevel(logging.INFO)
 filehandler = logging.FileHandler('MyShop.log')
@@ -15,8 +17,10 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 filehandler.setFormatter(formatter)
 info_logger.addHandler(filehandler)
 
+
 def payment_process(request):
     order_id = request.session.get('order_id')
+    info_logger.info('WTF???')
     order = get_object_or_404(Order, id=order_id)
     total_cost = order.get_total_cost()
 

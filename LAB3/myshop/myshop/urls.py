@@ -23,7 +23,6 @@ urlpatterns = [
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('payment/', include('payment.urls', namespace='payment')),
-   # path('accounts/', include('django.contrib.auth.urls')),
     path('', include('shop.urls', namespace='shop')),
 ]
 if settings.DEBUG:

@@ -1,8 +1,8 @@
 @import url(//fonts.googleapis.com/css?family=Ubuntu);
 
 body {
-    margin:0;
-    padding:0;
+    background-image: url("https://sun9-12.userapi.com/impg/Vui0TP1owRZafR90xPtF9LOz9_eIPT_MIDi0Tg/WeOmoyhrwpU.jpg?size=1350x650&quality=96&sign=915ff3bfa9547d67271220f45fa8ab23&type=album");
+    padding: 0;
     font-family:helvetica, sans-serif;
 }
 
@@ -10,18 +10,24 @@ h1, h2, h3, h4, h5 , h6 {
     font-family: 'Ubuntu', sans-serif; font-weight:normal;
 }
 
+h1{
+    color:#000;
+}
+h3{
+    color:#000;
+}
 a {
     text-decoration:none;
-    color:#5993bb;
+    color:#000;
 }
 
 a:hover {
-    color:#77b6e2;
+    color:#000;
 }
 
 a.button, input[type="submit"] {
     color:#fff;
-    background:#5993bb;
+    background:#9d07aa;
     border-radius:4px;
     padding:10px 20px;
     font-size:14px;
@@ -63,7 +69,7 @@ tbody tr.subtotal {
 }
 
 thead th, tbody tr.total {
-    background:#5993bb;
+    background:#9d07aa;
     color:#fff;
     font-weight:bold;
 }
@@ -75,7 +81,9 @@ table.cart {
 table.cart img {
     width:180px;
 }
-
+td{
+    background-color:#fff;
+}
 tbody td.num {
     text-align:right;
 }
@@ -123,8 +131,8 @@ ul.errorlist {
 }
 
 #subheader {
-    background:#ececec;
-    color:#444;
+    background:#9d07aa;
+    color:#fff;
     padding:15px 100px;
     overflow:auto;
 }
@@ -132,7 +140,7 @@ ul.errorlist {
 #header .logo {
     font-family: 'Ubuntu', sans-serif;
     float:left;
-    color:#333;
+    color:#000;
     font-size:22px;
     margin-right:10%;
 }
@@ -169,7 +177,7 @@ ul.errorlist {
 }
 
 #sidebar ul li.selected {
-    background:#5993bb;
+    background:#9d07aa;
     border-radius:4px;
 }
 
@@ -202,7 +210,7 @@ ul.errorlist {
 }
 
 .product-detail .price {
-    color:#333;
+    color:#000;
     font-size:28px;
     font-weight:bold;
 }
@@ -235,7 +243,7 @@ ul.errorlist {
 }
 
 .order-info h3 {
-    color:#5993bb;
+    color:#9d07aa;
 }
 
 .order-info ul li {
