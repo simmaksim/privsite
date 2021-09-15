@@ -12,9 +12,6 @@ class Tag(models.Model):
     slug = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=False)
 
-    def get_absolute_url(self):
-        return reverse('shop:product_list_by_tag', args=[self.slug])
-
     class Meta:
         ordering = ('name',)
 
