@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  web:
+    image: "myshop"
+    container_name: "myshopcont"
+    build: myshop
+    command: sh -c "python3 manage.py runserver 0.0.0.1337"
+
+    expose:
+      - 1337
+    volumes:
+      - static_data:/app/web/static
+    env_file:
+      - myshop/.env.dev
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:12.0-alpine
+    container_name: "postgres"
+    env_file:
+       - myshop/.env.dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - static_data:/app/web/static
+    ports:
+      - 8000:80
+    depends_on:
+      - web
+volumes:
+  postgres_data:
+  static_data:
